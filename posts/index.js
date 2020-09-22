@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const { randomBytes } = require('crypto');
 const cors = require('cors');
-
+const axios = require('axios');
 
 const app = express();
 
@@ -33,6 +33,11 @@ app.post("/posts", (req, res) => {
 
     res.status(201).send(posts[id]);
 })
+
+app.post("/events", (req, res) => {
+    console.log('event recived',req.body.type);
+    res.send({});
+});
 
 app.listen(4000, () => {
     console.log("4000 server started");
