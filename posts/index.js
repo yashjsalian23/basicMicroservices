@@ -1,10 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const { randomBytes } = require('crypto');
+const cors = require('cors');
+
 
 const app = express();
 
 app.use(bodyParser.json());
+app.use(cors());
 
 const posts = {};
 
@@ -19,6 +22,14 @@ app.post("/posts", (req, res) => {
         id,
         title
     };
+
+    axios.post("http://localhost:4005/events", {
+        type: 'PostCreated',
+        data: {
+            id,
+            title
+        }
+    });
 
     res.status(201).send(posts[id]);
 })
