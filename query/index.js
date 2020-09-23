@@ -31,7 +31,7 @@ app.post("/events",(req, res) => {
         const { id, content, postId, status } = data;
         const post = posts[postId];
 
-        const comment = posts.comments.find(c => c.id === id);
+        const comment = post.comments.find(c => c.id === id);
         comment.status = status;
         comment.content = content;
     }

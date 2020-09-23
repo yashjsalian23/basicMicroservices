@@ -30,14 +30,14 @@ app.post("/posts/:id/comments", (req, res) => {
             id,
             content,
             postId: req.params.id,
-            status
+            status: "pending"
         }
     });
 
     res.status(201).send(comments);
 });
 
-app.post("/events", (req, res) => {
+app.post("/events", async (req, res) => {
     console.log('event recived',req.body.type);
 
     const { type, data } = req.body;
@@ -49,7 +49,7 @@ app.post("/events", (req, res) => {
         const comment = comments.find(c => c.id === id);
         comment.status = status;
     
-        axios.post("http://localhost:4005/events",{
+        await axios.post("http://localhost:4005/events",{
             type: "ComentUpdated",
             data: {
                 id,
